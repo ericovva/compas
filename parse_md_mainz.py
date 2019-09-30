@@ -18,7 +18,7 @@ for record in DBF('/home/bastion/MD_MAINZ-20190827/MD_mainz.DBF'):
         values.append(val)
 
     cursor = connection.cursor()
-    #cursor.execute("INSERT INTO tz ({}) VALUES ({});".format(','.join(real_keys), ','.join(map(lambda x: u"{}".format(x) or 'null', values))))
-    print(values)
+    cursor.execute("INSERT INTO tz ({}) VALUES ({});".format(','.join(real_keys), ','.join(map(lambda x: '%s', real_keys)) ), values )
+    connection.commit()
     record = cursor.fetchone()
     break
